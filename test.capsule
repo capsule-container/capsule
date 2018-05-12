@@ -1,0 +1,9 @@
+self.Vehicle = self:import("@std/vehicle")
+self.VehicleList = self.Vehicle.VehicleList
+self.Chat = self:import("@std/chat")
+
+self.init = function(self)
+  outputDebugString(self.__MODULENAME .. " loaded.")
+  -- self.Vehicle:create(self.Vehicle.MANANA, 0, 0, 0)
+  self.Chat:out(self.VehicleList.MANANA)
+end

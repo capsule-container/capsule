@@ -1,0 +1,9 @@
+self.create = function(self, name, position)
+  local data = {
+    vehicleElement = createVehicle(410, position.x, position.y, position.z),
+  }
+end
+
+self.VehicleList = {
+  MANANA = 410,
+}

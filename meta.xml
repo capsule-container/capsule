@@ -1,0 +1,10 @@
+<meta>
+  <script src="capsule.lua" type="client"/>
+
+  <file src="test.capsule" type="client"/>
+
+  <!-- STDLIB -->
+  <file src="stdlib/vehicle.capsule" type="client"/>
+  <file src="stdlib/chainable.capsule" type="client"/>
+  <file src="stdlib/chat.capsule" type="client"/>
+</meta>

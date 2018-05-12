@@ -1,0 +1,7 @@
+self.out = function(self, message)
+  outputChatBox(message, 0, 255, 255, true)
+end
+
+self.err = function(self, message)
+  outputChatBox(message, 0, 255, 255, true)
+end
