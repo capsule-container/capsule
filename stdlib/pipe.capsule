@@ -1,0 +1,47 @@
+self.from = function(self, first, ...)
+  local pipeline = {
+    __pipes = {
+      {func = first, args = {...}}
+    },
+    __pipeCounter = 1,
+
+    to = function(self, fun, ...)
+      table.insert(self.__pipes, {func = fun, args = {...}, internal = false})
+      return self
+    end,
+
+    toInternal = function(self, fun, ...)
+      table.insert(self.__pipes, {func = fun, args = {...}, internal = true})
+      return self
+    end,
+
+    run = function(self, returnValue)
+      if self.__pipes[self.__pipeCounter] == nil then
+        return
+      end
+
+      local currentPipe = self.__pipes[self.__pipeCounter]
+
+      local callee = currentPipe.func
+      local args = currentPipe.args
+
+      if callee then
+        self.__pipeCounter = self.__pipeCounter + 1
+        local evaluation
+
+        if currentPipe.internal then
+          evaluation = callee(self, returnValue, unpack(args))
+        else
+          evaluation = callee(returnValue, unpack(args))
+        end
+
+        return self:run(evaluation)
+      else
+        self.__pipes = {}
+        self.__pipeCounter = 0
+      end
+    end
+  }
+
+  return setmetatable(pipeline, {})
+end

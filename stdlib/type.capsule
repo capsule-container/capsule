@@ -48,6 +48,7 @@ self.register = function(self, typeName, fields)
 
       local proxyTable = setmetatable({
         __instance = instance,
+        __type = typeName,
       }, {
         __index = function(self, key)
           if self.__instance[key] then
@@ -75,4 +76,16 @@ self.register = function(self, typeName, fields)
   }
 
   return typeHandler
+end
+
+self.of = function(self, variable)
+  if type(variable) == "table" then
+    if variable.__type then
+      return variable.__type
+    else
+      return "table"
+    end
+  else
+    return type(variable)
+  end
 end

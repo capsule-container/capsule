@@ -1,3 +1,0 @@
-self.from = function(self, first)
-  -- TODO use Pipey here (http://github.com/molnarmark/pipey)
-end

@@ -1,18 +1,11 @@
-local Type = self:import("@std/type")
+local Array = self:import("@std/array")
 local Chat = self:import("@std/chat")
 
 self.init = function(self)
-  local Dog = Type:register("Dog", {
-    id = {type = "number"},
-    name = {type = "string"}
-  })
+  local myArray = Array:new(1, 2, 3)
 
-  local woofy = Dog:new({
-    name = "Woofy"
-  }) -- Error, id nem nullable, ezért szükséges deklarálni
-
-  woofy.name = 5 -- Error, nem passzol a type
-  woofy.name2 = "Woofy" -- Error, nem létezik
-
-  -- Chat:out(woofy.name)
+  Chat:out(myArray:pop())
+  Chat:out(myArray:toString())
+  Chat:out(myArray:shift())
+  Chat:out(myArray:toString())
 end
