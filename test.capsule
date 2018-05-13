@@ -4,8 +4,6 @@ local Chat = self:import("@std/chat")
 self.init = function(self)
   local myArray = Array:new(1, 2, 3)
 
-  Chat:out(myArray:pop())
-  Chat:out(myArray:toString())
-  Chat:out(myArray:shift())
-  Chat:out(myArray:toString())
+  local newArray = myArray:reverse()
+  Chat:out(newArray:toString())
 end
