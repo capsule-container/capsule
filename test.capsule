@@ -1,9 +1,18 @@
-self.Vehicle = self:import("@std/vehicle")
-self.VehicleList = self.Vehicle.VehicleList
-self.Chat = self:import("@std/chat")
+local Type = self:import("@std/type")
+local Chat = self:import("@std/chat")
 
 self.init = function(self)
-  outputDebugString(self.__MODULENAME .. " loaded.")
-  -- self.Vehicle:create(self.Vehicle.MANANA, 0, 0, 0)
-  self.Chat:out(self.VehicleList.MANANA)
+  local Dog = Type:register("Dog", {
+    id = {type = "number"},
+    name = {type = "string"}
+  })
+
+  local woofy = Dog:new({
+    name = "Woofy"
+  }) -- Error, id nem nullable, ezért szükséges deklarálni
+
+  woofy.name = 5 -- Error, nem passzol a type
+  woofy.name2 = "Woofy" -- Error, nem létezik
+
+  -- Chat:out(woofy.name)
 end

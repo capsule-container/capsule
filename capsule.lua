@@ -31,7 +31,7 @@ function Capsule(modules)
 				if string.match(moduleName, "@std") then
 					local moduleNameParts = split(moduleName, "/")
 					local moduleCode = self:getGlobalContext():getModuleCode("stdlib/" .. moduleNameParts[2])
-					return loadstring(moduleCode)(self)(self)
+					return loadstring(moduleCode)(self)({})
 				else
 				local moduleCode = self:getGlobalContext():getModuleCode(moduleName)
 				return loadstring(moduleCode)(self)(self)	

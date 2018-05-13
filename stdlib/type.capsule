@@ -1,0 +1,78 @@
+-- TODO convert the outputDebugString calls to an internal error logger
+-- TODO convert pairs calls to an abstracted internal iterator
+
+self.register = function(self, typeName, fields)
+  local typeHandler = {
+    __fields = fields,
+    new = function(self, fieldsToBeSet)
+      local instance = {
+        __fieldRules = fields
+      }
+
+      local requiredFields = {}
+
+      for fieldName, fieldRuleSet in pairs(self.__fields) do
+        if not fieldRuleSet.nullable then
+          requiredFields[fieldName] = true
+        end
+      end
+
+      if fieldsToBeSet == {} then
+        return {}
+      end
+
+      for fieldName, _ in pairs(fieldsToBeSet) do
+        local rules = self.__fields[fieldName]
+        local fieldValue = fieldsToBeSet[fieldName]
+
+        if type(fieldValue) == rules.type then
+          instance[fieldName] = fieldValue
+          if requiredFields[fieldName] then
+            requiredFields[fieldName] = nil
+          end
+        else
+          outputDebugString("Wrong type for field '" .. fieldName .. "'. Expected " .. rules.type .. ", got " .. type(fieldValue) .. ".", 1)
+          return nil
+        end
+      end
+
+      if next(requiredFields) ~= nil then
+        outputDebugString("Required type(s) were not supplied.", 1)
+
+        for fieldName, _ in pairs(requiredFields) do
+          outputDebugString("Missing field: " .. fieldName, 1)
+        end
+
+        return nil
+      end
+
+      local proxyTable = setmetatable({
+        __instance = instance,
+      }, {
+        __index = function(self, key)
+          if self.__instance[key] then
+            outputDebugString('key exists, accessing it.')
+            return self.__instance[key]
+          end
+        end,
+
+        __newindex = function(self, key, value)
+          if self.__instance[key] then
+            local expectedType = self.__instance.__fieldRules[key].type
+            if type(value) == expectedType then
+              self.__instance[key] = value
+            else
+              outputDebugString("Cannot assign value of type '" .. type(value) .. "'' to " .. key .. ". " .. expectedType .. " expected.")
+            end
+          else
+            outputDebugString("Adding new fields to types are forbidden.", 1)
+          end
+        end
+      })
+
+      return proxyTable
+    end
+  }
+
+  return typeHandler
+end

@@ -7,4 +7,5 @@
   <file src="stdlib/vehicle.capsule" type="client"/>
   <file src="stdlib/chainable.capsule" type="client"/>
   <file src="stdlib/chat.capsule" type="client"/>
+  <file src="stdlib/type.capsule" type="client"/>
 </meta>
