@@ -9,4 +9,5 @@
   <file src="stdlib/chat.capsule" type="client"/>
   <file src="stdlib/type.capsule" type="client"/>
   <file src="stdlib/array.capsule" type="client"/>
+  <file src="stdlib/callback.capsule" type="client"/>
 </meta>

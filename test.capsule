@@ -1,9 +1,8 @@
-local Array = self:import("@std/array")
 local Chat = self:import("@std/chat")
+local Callback = self:import("@std/callback")
 
 self.init = function(self)
-  local myArray = Array:new(1, 2, 3)
+  local myFunction = Callback:map("x, y => x * 2 + y")
 
-  local newArray = myArray:reverse()
-  Chat:out(newArray:toString())
+  Chat:out(myFunction(3, 1)) --> 7
 end
