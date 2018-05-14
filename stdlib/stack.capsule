@@ -1,0 +1,15 @@
+local Array = self:import("@std/array")
+
+self.new = function(self)
+  return setmetatable({
+    __values = Array.new(),
+  }, {
+    __index = function()
+      return self.__values
+    end,
+
+    __newindex = function()
+      return self.__values
+    end
+  })
+end

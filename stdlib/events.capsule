@@ -1,0 +1,20 @@
+self.new = function(self, name, callback)
+  addEvent(name, true)
+  addEventHandler(name, root, callback)
+end
+
+self.on = function(self, name, callback)
+  addEventHandler(name, root, callback)
+end
+
+self.emit = function(self, name, args, eventType)
+  if eventType ~= nil then
+    if eventType == "client" then
+      triggerClientEvent(name, root, unpack(args))
+    elseif eventType == "server" then
+      triggerServerEvent(name, root, unpack(args))
+    end
+  else
+    triggerEvent(name, root, unpack(args))
+  end
+end

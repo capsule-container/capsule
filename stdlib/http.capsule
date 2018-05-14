@@ -1,0 +1,21 @@
+self.get = function(self)
+
+end
+
+self.post = function(self)
+
+end
+
+self.put = function(self)
+
+end
+
+self.delete = function(self)
+
+end
+
+self.RequestHeader = {
+  new = function()
+    -- TODO
+  end
+}
