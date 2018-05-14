@@ -1,0 +1,31 @@
+local Error = self:import("stdlib/error")
+
+self.new = function(self, initialPairs)
+  local fields = {}
+
+  for _, pair in pairs(initialPairs) do
+    fields[pair[1]] = pair[2]
+  end
+
+  local proxyTable = {
+    _fields = fields,
+
+    set = function(self, key, value)
+      self._fields[key] = value
+    end,
+
+    get = function(self, key)
+      return self._fields[key]
+    end,
+  }
+
+  return setmetatable(proxyTable, {
+    __index = function(self)
+      Error:throw("Use the :get() method to access fields.")
+    end,
+
+    __newindex = function(self)
+      Error:throw("Use the :set() method to add new fields.")
+    end
+  })
+end

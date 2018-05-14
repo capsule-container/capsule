@@ -1,4 +1,4 @@
--- TODO convert the outputDebugString calls to an internal error logger
+local Error = self:import("stdlib/error")
 -- TODO convert pairs calls to an abstracted internal iterator
 
 self.register = function(self, typeName, fields)
@@ -31,16 +31,16 @@ self.register = function(self, typeName, fields)
             requiredFields[fieldName] = nil
           end
         else
-          outputDebugString("Wrong type for field '" .. fieldName .. "'. Expected " .. rules.type .. ", got " .. type(fieldValue) .. ".", 1)
+          Error:throw("Wrong type for field '" .. fieldName .. "'. Expected " .. rules.type .. ", got " .. type(fieldValue) .. ".")
           return nil
         end
       end
 
       if next(requiredFields) ~= nil then
-        outputDebugString("Required type(s) were not supplied.", 1)
+        Error:throw("Required type(s) were not supplied.")
 
         for fieldName, _ in pairs(requiredFields) do
-          outputDebugString("Missing field: " .. fieldName, 1)
+          Error:throw("Missing field: " .. fieldName)
         end
 
         return nil
@@ -52,7 +52,6 @@ self.register = function(self, typeName, fields)
       }, {
         __index = function(self, key)
           if self.__instance[key] then
-            outputDebugString('key exists, accessing it.')
             return self.__instance[key]
           end
         end,
@@ -63,10 +62,10 @@ self.register = function(self, typeName, fields)
             if type(value) == expectedType then
               self.__instance[key] = value
             else
-              outputDebugString("Cannot assign value of type '" .. type(value) .. "'' to " .. key .. ". " .. expectedType .. " expected.")
+              Error:throw("Cannot assign value of type '" .. type(value) .. "'' to " .. key .. ". " .. expectedType .. " expected.")
             end
           else
-            outputDebugString("Adding new fields to types are forbidden.", 1)
+            Error:throw("Adding new fields to types are forbidden.")
           end
         end
       })

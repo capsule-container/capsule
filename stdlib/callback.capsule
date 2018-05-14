@@ -1,4 +1,8 @@
 self.parse = function(self, s)
+  if type(s) == "function" then
+    return s
+  end
+
   local arrowLocation = s:find("=>")
   local argList = s:sub(0, arrowLocation - 1)
   local returnValue = s:sub(arrowLocation + 2)

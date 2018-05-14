@@ -1,0 +1,3 @@
+self.throw = function(self, message)
+  return outputDebugString(message, 1)
+end

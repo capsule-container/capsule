@@ -13,4 +13,5 @@
   <file src="stdlib/event.capsule" type="client"/>
   <file src="stdlib/stack.capsule" type="client"/>
   <file src="stdlib/callback.capsule" type="client"/>
+  <file src="stdlib/error.capsule" type="client"/>
 </meta>

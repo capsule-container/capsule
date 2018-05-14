@@ -1,4 +1,5 @@
 local Callback = self:import("stdlib/callback")
+local Error = self:import("stdlib/error")
 
 self.new = function(self, ...)
 	local arrayTable = {...}
@@ -39,9 +40,7 @@ self.new = function(self, ...)
 		end,
 
 		map = function(self, callback)
-			if type(callback) == "string" then
-				callback = Callback:parse(callback)
-			end
+			callback = Callback:parse(callback)
 
 			local newArray = {}
 			for _, value in pairs(self.__values) do
@@ -118,7 +117,7 @@ self.new = function(self, ...)
 		end,
 
 		__newindex = function(self)
-			outputDebugString("Error. Use the :push() method to push a value to an array.", 1)
+			Error:throw("Error. Use the :push() method to push a value to an array.")
 		end,
 
 	})
