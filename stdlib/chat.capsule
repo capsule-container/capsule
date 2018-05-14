@@ -1,4 +1,4 @@
-self.out = function(self, message)
+this.out = function(this, message)
   if type(message) == "boolean" then
     message = tostring(message)
   end
@@ -7,7 +7,7 @@ self.out = function(self, message)
   return true
 end
 
-self.err = function(self, message)
+this.err = function(this, message)
   outputChatBox(message, 255, 255, 255, true)
   return true
 end

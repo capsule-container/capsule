@@ -1,8 +1,8 @@
-self.between = function(self, startPoint, endPoint)
-  local generatedRange = {}
+this.between = function(this, startPoint, endPoint)
+  local rangeTable = {}
   for i = startPoint, endPoint do
-    table.insert(generatedRange, i)
+    table.insert(rangeTable, i)
   end
 
-  return unpack(generatedRange)
+  unpack(rangeTable)
 end

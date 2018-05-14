@@ -1,7 +1,7 @@
-self.raw = function(self, data)
+this.raw = function(this, data)
   outputDebugString(inspect(data))
 end
 
-self.explicit = function(self, data)
+this.explicit = function(this, data)
   iprint(data)
 end

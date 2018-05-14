@@ -1,9 +1,91 @@
-self.create = function(self, name, position)
+local Array = import("stdlib/array")
+local Map = import("stdlib/map")
+
+this.new = function(this, name, position)
   local data = {
     vehicleElement = createVehicle(410, position.x, position.y, position.z),
+
+    blow = function(this)
+      blowVehicle(this.vehicleElement)
+      return this
+    end,
+
+    fix = function(this)
+      fixVehicle(this.vehicleElement)
+      return this
+    end,
+
+    getOriginalHandling = function(this)
+      return Map:new(getOriginalHandling(this.vehicleElement))
+    end,
+
+    getColor = function(this)
+      return Array:new(getVehicleColor(this.vehicleElement))
+    end,
+
+    getDriver = function(this)
+      return getVehicleController(this.vehicleElement)
+    end,
+
+    setDriver = function(this, newDriver)
+      warpPedIntoVehicle(newDriver, this.vehicleElement)
+      return this
+    end,
+
+    isDoorOpen = function(this, doorNumber)
+      return getVehicleDoorState(this.vehicleElement, doorNumber)
+    end,
+
+    areAnyDoorsOpen = function(this)
+      -- TODO
+    end,
+
+    areHeadlightsOn = function(this)
+      return getVhicleLightState(this.vehicleElement)
+    end,
+
+    getName = function(this)
+      -- TODO
+    end,
+
+    getModelId = function(this)
+      -- TODO
+    end,
+
+    getPlate = function(this)
+      -- TODO
+    end,
+
+    setPlate = function(this)
+      -- TODO
+    end,
+
+    getGear = function(this)
+      return getVehicleCurrentGear(this.vehicleElement)
+    end,
+
+    components = {
+      getPosition = function(this, name)
+        return getVehicleComponentPosition(this.vehicleElement, name)
+      end,
+
+      getRotation = function(this, name)
+        return getVehicleComponentRotation(this.vehicleElement, name)
+      end,
+
+      getAll = function(this)
+        return getVehicleComponents(this.vehicleElement)
+      end,
+
+      isVisible = function(this, name)
+        return getVehicleComponentVisible(this.vehicleElement, name)
+      end
+    }
   }
+
+  return setmetatable(data, {})
 end
 
-self.VehicleList = {
+this.VehicleList = {
   MANANA = 410,
 }

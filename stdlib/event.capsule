@@ -1,13 +1,13 @@
-self.new = function(self, name, callback)
+this.new = function(this, name, callback)
   addEvent(name, true)
   addEventHandler(name, root, callback)
 end
 
-self.on = function(self, name, callback)
+this.on = function(this, name, callback)
   addEventHandler(name, root, callback)
 end
 
-self.emit = function(self, name, args, eventType)
+this.emit = function(this, name, args, eventType)
   if eventType ~= nil then
     if eventType == "client" then
       triggerClientEvent(name, root, unpack(args))

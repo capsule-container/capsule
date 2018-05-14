@@ -1,4 +1,4 @@
-self.new = function(self)
+this.new = function(this)
   return {
     __type = "store",
     __hooks = {},
@@ -16,55 +16,55 @@ self.new = function(self)
       end,
     },
 
-    onAction = function(self, callback)
-      self.__actionHandler = callback
+    onAction = function(this, callback)
+      this.__actionHandler = callback
     end,
 
-    setComputedProperty = function(self, value, callback)
-      self.__computedProperties[value] = callback
+    setComputedProperty = function(this, value, callback)
+      this.__computedProperties[value] = callback
     end,
 
     setHook = function(hookName, callback)
-      self.__hooks[hookName] = callback
+      this.__hooks[hookName] = callback
     end,
 
-    dispatch = function(self, name, payload)
-      if self.__hooks["beforeAction"] then
-        self.__hooks["beforeAction"](name, payload)
+    dispatch = function(this, name, payload)
+      if this.__hooks["beforeAction"] then
+        this.__hooks["beforeAction"](name, payload)
       end
-      self.__actionHandler(name, payload)
-      if self.__hooks["afterAction"] then
-        self.__hooks["afterAction"](name, payload)
+      this.__actionHandler(name, payload)
+      if this.__hooks["afterAction"] then
+        this.__hooks["afterAction"](name, payload)
       end
     end,
 
-    getState = function(self)
-      return self.__helpers.shallowCopy(self.__state)
+    getState = function(this)
+      return this.__helpers.shallowCopy(this.__state)
     end,
 
-    setState = function(self, state)
+    setState = function(this, state)
       for fieldName, fieldValue in pairs(state) do
-        self.__state[fieldName] = fieldValue
-        if self.__computedProperties[fieldName] then
-          self.__computedProperties[fieldName]()
-          self:emit("computed_update")
+        this.__state[fieldName] = fieldValue
+        if this.__computedProperties[fieldName] then
+          this.__computedProperties[fieldName]()
+          this:emit("computed_update")
         end
       end
-      self:emit("update")
+      this:emit("update")
     end,
 
-    setInitialState = function(self, initialState)
-      self.__state = initialState
-      self:emit("initial_state_set")
+    setInitialState = function(this, initialState)
+      this.__state = initialState
+      this:emit("initial_state_set")
     end,
 
-    on = function(self, eventName, callback)
-      self.__events[eventName] = callback
+    on = function(this, eventName, callback)
+      this.__events[eventName] = callback
     end,
 
-    emit = function(self, eventName)
-      if self.__events[eventName] then
-        self.__events[eventName]()
+    emit = function(this, eventName)
+      if this.__events[eventName] then
+        this.__events[eventName]()
       end
     end,
   }

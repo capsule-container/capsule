@@ -1,37 +1,37 @@
-local Callback = self:import("stdlib/callback")
-local Error = self:import("stdlib/error")
+local Callback = import("stdlib/callback")
+local Error = import("stdlib/error")
 
-self.new = function(self, ...)
+this.new = function(this, ...)
 	local arrayTable = {...}
 
 	local proxyTable = setmetatable({
 		__values = arrayTable,
-		new = self.new,
+		new = this.new,
 		length = #arrayTable,
 
-		push = function(self, value)
-			table.insert(self.__values, value)
-			self.length = self.length + 1
+		push = function(this, value)
+			table.insert(this.__values, value)
+			this.length = this.length + 1
 			return true
 		end,
 
-		pop = function(self, value)
-			local valueToPop = self.__values[#self.__values]
-			table.remove(self.__values, #self.__values)
-			self.length = self.length - 1
+		pop = function(this, value)
+			local valueToPop = this.__values[#this.__values]
+			table.remove(this.__values, #this.__values)
+			this.length = this.length - 1
 			return valueToPop
 		end,
 
-		shift = function(self, value)
-			local valueToShift = self.__values[1]
-			self.length = self.length - 1
-			table.remove(self.__values, 1)
+		shift = function(this, value)
+			local valueToShift = this.__values[1]
+			this.length = this.length - 1
+			table.remove(this.__values, 1)
 			return valueToShift
 		end,
 
-		toString = function(self)
+		toString = function(this)
 			local stringRep = "["
-			for _, value in pairs(self.__values) do
+			for _, value in pairs(this.__values) do
 				stringRep = stringRep .. value .. ", "
 			end
 
@@ -39,31 +39,31 @@ self.new = function(self, ...)
 			return stringRep
 		end,
 
-		map = function(self, callback)
+		map = function(this, callback)
 			callback = Callback:parse(callback)
 
 			local newArray = {}
-			for _, value in pairs(self.__values) do
+			for _, value in pairs(this.__values) do
 				table.insert(newArray, callback(value))
 			end
 
-			return self:new(unpack(newArray))
+			return this:new(unpack(newArray))
 		end,
 
-		filter = function(self, callback)
+		filter = function(this, callback)
 			local newArray = {}
-			for _, value in pairs(self.__values) do
+			for _, value in pairs(this.__values) do
 				local evaluation = callback(value)
 				if evaluation then
 					table.insert(newArray, evaluation)
 				end
 			end
 
-			return self:new(unpack(newArray))
+			return this:new(unpack(newArray))
 		end,
 
-		includes = function(self, expected)
-			for _, value in pairs(self.__values) do
+		contains = function(this, expected)
+			for _, value in pairs(this.__values) do
 				if value == expected then
 					return true
 				end
@@ -72,33 +72,34 @@ self.new = function(self, ...)
 			return false
 		end,
 
-		reverse = function(self)
+		reverse = function(this)
 			local reversedTable = {}
-			local itemCount = #self.__values
-			for k, v in ipairs(self.__values) do
+			local itemCount = #this.__values
+			for k, v in ipairs(this.__values) do
 			    reversedTable[itemCount + 1 - k] = v
 			end
 
-			return self:new(unpack(reversedTable))
+			return this:new(unpack(reversedTable))
 		end,
 
-		forEach = function(self, callback)
-			for key, value in pairs(self.__values) do
+		forEach = function(this, callback)
+			for key, value in pairs(this.__values) do
 				callback(value, key)
 			end
 		end,
 
-		toJSON = function(self)
-			return toJSON(self.__values)
+		toJSON = function(this)
+			return toJSON(this.__values)
 		end,
 
-		join = function(self, delim)
+		join = function(this, delim)
 			if delim == nil then
 				delim = ","
 			end
+
 			local joined = ""
 
-			for _, value in pairs(self.__values) do
+			for _, value in pairs(this.__values) do
 				joined = joined .. value .. ", "
 			end
 
@@ -108,15 +109,15 @@ self.new = function(self, ...)
 
 		}, {
 		__type = "array",
-		__index = function(self, key)
-			if self.__values[key + 1] then
-				return self.__values[key + 1]
+		__index = function(this, key)
+			if this.__values[key + 1] then
+				return this.__values[key + 1]
 			else
 				return nil
 			end
 		end,
 
-		__newindex = function(self)
+		__newindex = function(this)
 			Error:throw("Error. Use the :push() method to push a value to an array.")
 		end,
 

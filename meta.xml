@@ -1,17 +1,24 @@
 <meta>
   <script src="capsule.lua" type="client"/>
 
-  <file src="test.capsule" type="client"/>
 
   <!-- STDLIB -->
-  <file src="stdlib/vehicle.capsule" type="client"/>
-  <file src="stdlib/pipe.capsule" type="client"/>
-  <file src="stdlib/chat.capsule" type="client"/>
-  <file src="stdlib/type.capsule" type="client"/>
-  <file src="stdlib/array.capsule" type="client"/>
-  <file src="stdlib/multex.capsule" type="client"/>
-  <file src="stdlib/event.capsule" type="client"/>
-  <file src="stdlib/stack.capsule" type="client"/>
-  <file src="stdlib/callback.capsule" type="client"/>
-  <file src="stdlib/error.capsule" type="client"/>
+
+  <!-- TYPES & UTILS -->
+  <file src="stdlib/error.capsule" type="shared"/>
+  <file src="stdlib/callback.capsule" type="shared"/>
+  <file src="stdlib/type.capsule" type="shared"/>
+  <file src="stdlib/array.capsule" type="shared"/>
+  <file src="stdlib/map.capsule" type="shared"/>
+  <file src="stdlib/stack.capsule" type="shared"/>
+  <file src="stdlib/multex.capsule" type="shared"/>
+  <file src="stdlib/pipe.capsule" type="shared"/>
+  <file src="stdlib/event.capsule" type="shared"/>
+  <file src="stdlib/range.capsule" type="shared"/>
+
+  <file src="stdlib/vehicle.capsule" type="shared"/>
+  <file src="stdlib/chat.capsule" type="shared"/>
+
+
+  <file src="test.capsule" type="client"/>
 </meta>

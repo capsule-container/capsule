@@ -1,6 +1,6 @@
-local Array = self:import("stdlib/array")
+local Array = import("stdlib/array")
 
-self.__ColorList = {
+this.__ColorList = {
   aliceblue = Array:new(240, 248, 255),
   antiquewhite = Array:new(250, 235, 215),
   aqua = Array:new( 0, 255, 255),
@@ -149,12 +149,12 @@ self.__ColorList = {
   yellow = Array:new(255, 255, 0),
   yellowgreen = Array:new(154, 205, 50)
 }
-self.find = function(self, name, toRgb)
-  if self.__ColorList[name] then
+this.find = function(this, name, toRgb)
+  if this.__ColorList[name] then
     if toRgb ~= nil then
-      return "tocolor(" .. self.__ColorList[name]:join(", ") .. ")"
+      return "tocolor(" .. this.__ColorList[name]:join(", ") .. ")"
     else
-      return self.__ColorList[name]
+      return this.__ColorList[name]
     end
   else
     return Array:new()

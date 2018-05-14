@@ -1,26 +1,26 @@
-local Array = self:import("stdlib/array")
+local Array = import("stdlib/array")
 
-self.new = function(self)
+this.new = function(this)
   return setmetatable({
     __type = "stack",
     _array = Array:new(),
-    push = function(self, value)
-      return self._array:push(value)
+    push = function(this, value)
+      return this._array:push(value)
     end,
 
-    pop = function(self)
-      return self._array:pop()
+    pop = function(this)
+      return this._array:pop()
     end,
 
-    toString = function(self)
-      return self._array:toString()
+    toString = function(this)
+      return this._array:toString()
     end,
   }, {
-    __index = function(self)
+    __index = function(this)
       return nil
     end,
 
-    __newindex = function(self)
+    __newindex = function(this)
       return nil
     end
   })

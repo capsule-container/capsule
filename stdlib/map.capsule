@@ -1,30 +1,40 @@
-local Error = self:import("stdlib/error")
+local Error = import("stdlib/error")
 
-self.new = function(self, initialPairs)
+this.new = function(this, initialPairs)
   local fields = {}
-
-  for _, pair in pairs(initialPairs) do
-    fields[pair[1]] = pair[2]
-  end
 
   local proxyTable = {
     _fields = fields,
+    length = 0,
 
-    set = function(self, key, value)
-      self._fields[key] = value
+    set = function(this, key, value)
+      if this._fields[key] == nil then
+        this.length = this.length + 1
+      end
+
+      this._fields[key] = value
     end,
 
-    get = function(self, key)
-      return self._fields[key]
+    get = function(this, key)
+      return this._fields[key]
     end,
+
+    delete = function(this, key)
+      this._fields[key] = nil
+    end
   }
 
+  for _, pair in pairs(initialPairs) do
+    fields[pair[1]] = pair[2]
+    proxyTable.length = proxyTable.length + 1
+  end
+
   return setmetatable(proxyTable, {
-    __index = function(self)
+    __index = function(this)
       Error:throw("Use the :get() method to access fields.")
     end,
 
-    __newindex = function(self)
+    __newindex = function(this)
       Error:throw("Use the :set() method to add new fields.")
     end
   })

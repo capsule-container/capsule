@@ -1,4 +1,4 @@
-self.from = function(self, first, ...)
+this.from = function(this, first, ...)
   local pipeline = {
     __type = "pipeline",
     __pipes = {
@@ -6,40 +6,40 @@ self.from = function(self, first, ...)
     },
     __pipeCounter = 1,
 
-    to = function(self, fun, ...)
-      table.insert(self.__pipes, {func = fun, args = {...}, internal = false})
-      return self
+    to = function(this, fun, ...)
+      table.insert(this.__pipes, {func = fun, args = {...}, internal = false})
+      return this
     end,
 
-    toInternal = function(self, fun, ...)
-      table.insert(self.__pipes, {func = fun, args = {...}, internal = true})
-      return self
+    toInternal = function(this, fun, ...)
+      table.insert(this.__pipes, {func = fun, args = {...}, internal = true})
+      return this
     end,
 
-    run = function(self, returnValue)
-      if self.__pipes[self.__pipeCounter] == nil then
+    run = function(this, returnValue)
+      if this.__pipes[this.__pipeCounter] == nil then
         return
       end
 
-      local currentPipe = self.__pipes[self.__pipeCounter]
+      local currentPipe = this.__pipes[this.__pipeCounter]
 
       local callee = currentPipe.func
       local args = currentPipe.args
 
       if callee then
-        self.__pipeCounter = self.__pipeCounter + 1
+        this.__pipeCounter = this.__pipeCounter + 1
         local evaluation
 
         if currentPipe.internal then
-          evaluation = callee(self, returnValue, unpack(args))
+          evaluation = callee(this, returnValue, unpack(args))
         else
           evaluation = callee(returnValue, unpack(args))
         end
 
-        return self:run(evaluation)
+        return this:run(evaluation)
       else
-        self.__pipes = {}
-        self.__pipeCounter = 0
+        this.__pipes = {}
+        this.__pipeCounter = 0
       end
     end
   }

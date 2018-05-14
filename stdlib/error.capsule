@@ -1,3 +1,3 @@
-self.throw = function(self, message)
+this.throw = function(this, message)
   return outputDebugString(message, 1)
 end

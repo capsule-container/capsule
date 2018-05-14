@@ -1,4 +1,4 @@
-self.parse = function(self, s)
+this.parse = function(this, s)
   if type(s) == "function" then
     return s
   end

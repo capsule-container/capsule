@@ -1,17 +1,17 @@
-local Error = self:import("stdlib/error")
+local Error = import("stdlib/error")
 -- TODO convert pairs calls to an abstracted internal iterator
 
-self.register = function(self, typeName, fields)
+this.register = function(this, typeName, fields)
   local typeHandler = {
     __fields = fields,
-    new = function(self, fieldsToBeSet)
+    new = function(this, fieldsToBeSet)
       local instance = {
         __fieldRules = fields
       }
 
       local requiredFields = {}
 
-      for fieldName, fieldRuleSet in pairs(self.__fields) do
+      for fieldName, fieldRuleSet in pairs(this.__fields) do
         if not fieldRuleSet.nullable then
           requiredFields[fieldName] = true
         end
@@ -22,7 +22,7 @@ self.register = function(self, typeName, fields)
       end
 
       for fieldName, _ in pairs(fieldsToBeSet) do
-        local rules = self.__fields[fieldName]
+        local rules = this.__fields[fieldName]
         local fieldValue = fieldsToBeSet[fieldName]
 
         if type(fieldValue) == rules.type then
@@ -50,17 +50,17 @@ self.register = function(self, typeName, fields)
         __instance = instance,
         __type = typeName,
       }, {
-        __index = function(self, key)
-          if self.__instance[key] then
-            return self.__instance[key]
+        __index = function(this, key)
+          if this.__instance[key] then
+            return this.__instance[key]
           end
         end,
 
-        __newindex = function(self, key, value)
-          if self.__instance[key] then
-            local expectedType = self.__instance.__fieldRules[key].type
+        __newindex = function(this, key, value)
+          if this.__instance[key] then
+            local expectedType = this.__instance.__fieldRules[key].type
             if type(value) == expectedType then
-              self.__instance[key] = value
+              this.__instance[key] = value
             else
               Error:throw("Cannot assign value of type '" .. type(value) .. "'' to " .. key .. ". " .. expectedType .. " expected.")
             end
@@ -77,7 +77,7 @@ self.register = function(self, typeName, fields)
   return typeHandler
 end
 
-self.of = function(self, variable)
+this.of = function(this, variable)
   if type(variable) == "table" then
     if variable.__type then
       return variable.__type
