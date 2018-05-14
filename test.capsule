@@ -1,8 +1,8 @@
 local Chat = self:import("@std/chat")
-local Callback = self:import("@std/callback")
+local Array = self:import("@std/array")
 
 self.init = function(self)
-  local myFunction = Callback:map("x, y => x * 2 + y")
-
-  Chat:out(myFunction(3, 1)) --> 7
+  local arr = Array:new(1, 2, 3)
+  local newArr = arr:map("x => x * 5")
+  Chat:out(newArr[1])
 end

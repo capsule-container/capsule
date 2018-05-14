@@ -1,7 +1,7 @@
-self.map = function(self, s)
-  local arrowLocation = s:find('=>')
-  local argsList = s:sub(0, arrowLocation-1)
-  local returnValue = s:sub(arrowLocation+2)
+self.parse = function(self, s)
+  local arrowLocation = s:find("=>")
+  local argList = s:sub(0, arrowLocation - 1)
+  local returnValue = s:sub(arrowLocation + 2)
 
-  return loadstring('return function('..argsList..') return '..returnValue..' end')()
+  return loadstring("return function(" .. argList .. ") return " .. returnValue .. " end")()
 end

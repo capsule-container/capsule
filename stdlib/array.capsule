@@ -1,3 +1,5 @@
+local Callback = self:import("stdlib/callback")
+
 self.new = function(self, ...)
 	local arrayTable = {...}
 
@@ -37,6 +39,10 @@ self.new = function(self, ...)
 		end,
 
 		map = function(self, callback)
+			if type(callback) == "string" then
+				callback = Callback:parse(callback)
+			end
+
 			local newArray = {}
 			for _, value in pairs(self.__values) do
 				table.insert(newArray, callback(value))
