@@ -31,10 +31,10 @@ function Capsule(modules)
 				if string.match(moduleName, "@std") then
 					local moduleNameParts = split(moduleName, "/")
 					local moduleCode = self:getGlobalContext():getModuleCode("stdlib/" .. moduleNameParts[2])
-					return loadstring(moduleCode)(self)({})
+					return loadstring(moduleCode)({})(self)
 				else
-				local moduleCode = self:getGlobalContext():getModuleCode(moduleName)
-				return loadstring(moduleCode)(self)(self)
+					local moduleCode = self:getGlobalContext():getModuleCode(moduleName)
+					return loadstring(moduleCode)(self)({})
 				end
 			end,
 		}
@@ -57,20 +57,6 @@ function Capsule(modules)
 	return self
 end
 
-local simpleModule = [[
-return function(context)
-	local self = setmetatable(context, {})
-	self.value = 5
-
-	self.init = function(self)
-		outputDebugString(inspect(self.value))
-	end
-
-	return self
-end
-]]
-
 local capsule = Capsule({
 	{name = "test"},
 })
---> Module 1 initialized.

@@ -1,0 +1,7 @@
+self.raw = function(self, data)
+  outputDebugString(inspect(data))
+end
+
+self.explicit = function(self, data)
+  iprint(data)
+end

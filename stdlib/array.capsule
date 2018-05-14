@@ -85,6 +85,20 @@ self.new = function(self, ...)
 
 		toJSON = function(self)
 			return toJSON(self.__values)
+		end,
+
+		join = function(self, delim)
+			if delim == nil then
+				delim = ","
+			end
+			local joined = ""
+
+			for _, value in pairs(self.__values) do
+				joined = joined .. value .. ", "
+			end
+
+			joined = joined:sub(1, -3)
+			return joined
 		end
 
 		}, {

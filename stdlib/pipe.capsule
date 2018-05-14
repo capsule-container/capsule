@@ -1,5 +1,6 @@
 self.from = function(self, first, ...)
   local pipeline = {
+    __type = "pipeline",
     __pipes = {
       {func = first, args = {...}}
     },

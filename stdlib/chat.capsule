@@ -1,4 +1,8 @@
 self.out = function(self, message)
+  if type(message) == "boolean" then
+    message = tostring(message)
+  end
+
   outputChatBox(message, 255, 255, 255, true)
   return true
 end

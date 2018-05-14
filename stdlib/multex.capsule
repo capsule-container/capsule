@@ -1,5 +1,6 @@
 self.new = function(self)
   return {
+    __type = "store",
     __hooks = {},
     __state = {},
     __events = {},
