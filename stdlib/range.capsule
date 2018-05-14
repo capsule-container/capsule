@@ -6,3 +6,12 @@ this.between = function(this, startPoint, endPoint)
 
   unpack(rangeTable)
 end
+
+this.to = function(this, endPoint)
+  local rangeTable = {}
+  for i = 1, endPoint do
+    table.insert(rangeTable, i)
+  end
+
+  unpack(rangeTable)
+end
