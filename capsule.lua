@@ -6,7 +6,7 @@ function Capsule(modules)
 
 	self.getModuleCode = function(self, moduleName)
 		local codeTable = {
-			"return function(context)\nlocal this = setmetatable({}, {})",
+			"return function(context)\nlocal this = setmetatable({}, {__call = function(self, ...) return self:new(...) end})",
 			"import = function(moduleName) return context:import(moduleName) end"
 		}
 		local fileToModule = fileOpen(moduleName .. ".capsule")

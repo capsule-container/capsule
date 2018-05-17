@@ -6,6 +6,7 @@
 
   <!-- TYPES & UTILS -->
   <file src="stdlib/error.capsule" type="shared"/>
+  <file src="stdlib/debug.capsule" type="shared"/>
   <file src="stdlib/callback.capsule" type="shared"/>
   <file src="stdlib/type.capsule" type="shared"/>
   <file src="stdlib/array.capsule" type="shared"/>

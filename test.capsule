@@ -1,13 +1,7 @@
 import "@std/array" as Array
-import "@std/chat" as Chat
+import "@std/debug" as Debug
 import "@std/range" as Range
 
 this.init = function(this)
-	local simpleArray = Array:new(1, 2, 3)
-  Chat->out(simpleArray[0]) -- 1
-  Chat->out(simpleArray[1]) -- 2
-  Chat->out(simpleArray[2]) -- 3
-
-  local rangeArray = Array:new(Range->between(1, 10))->toString() -- [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-  Chat->out(simpleArray->contains(5)) -- false
+  Debug->raw({Range->between(0, 10)})
 end

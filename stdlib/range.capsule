@@ -4,7 +4,7 @@ this.between = function(this, startPoint, endPoint)
     table.insert(rangeTable, i)
   end
 
-  unpack(rangeTable)
+  return unpack(rangeTable)
 end
 
 this.to = function(this, endPoint)
@@ -13,5 +13,5 @@ this.to = function(this, endPoint)
     table.insert(rangeTable, i)
   end
 
-  unpack(rangeTable)
+  return unpack(rangeTable)
 end
