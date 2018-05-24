@@ -37,50 +37,203 @@ this.new = function(this, name, position)
     end,
 
     areAnyDoorsOpen = function(this)
-      -- TODO
+      local evaluation
+      for _, doorId in ipairs({0, 1, 2, 3, 4, 5}) do
+        if getVehicleDoorOpenRatio(this.vehicleElement, doorId) == 1 then 
+          return doorId 
+        end
+      end
+      return false
     end,
 
     areHeadlightsOn = function(this)
-      return getVhicleLightState(this.vehicleElement)
+      return getVehicleLightState(this.vehicleElement)
+		end,
+		
+		getLightState = function(this)
+      return getVehicleLightState(this.vehicleElement)
     end,
 
     getName = function(this)
-      -- TODO
+      return getVehicleName(this.vehicleElement)
     end,
 
-    getModelId = function(this)
-      -- TODO
+    getModel = function(this)
+      return getElementModel(this.vehicleElement)
     end,
 
     getPlate = function(this)
-      -- TODO
+      return getVehiclePlateText(this.vehicleElement)
     end,
 
-    setPlate = function(this)
-      -- TODO
+    setPlate = function(this, ...)
+      setVehiclePlate(this.vehicleElement, ...)
+      return this
     end,
 
     getGear = function(this)
       return getVehicleCurrentGear(this.vehicleElement)
-    end,
+		end,
+
+		getEngineState = function(this)
+			return getVehicleEngineState(this.vehicleElement)
+		end,
+
+		getGravity = function(this)
+			return getVehicleGravity(this.vehicleElement)
+		end,
+
+		getGravity = function(this)
+			return getVehicleGravity(this.vehicleElement)
+		end,
+
+		getMaxPassengers = function(this)
+			return getVehicleMaxPassengers(this.vehicleElement)
+		end,
+
+		getLandingGearDown = function(this)
+			return getVehicleLandingGearDown(this.vehicleElement)
+		end,
+
+		getModelExhaustFumesPosition = function(this)
+			return Array:new(getVehicleModelExhaustFumesPosition(getElementModel(this.vehicleElement)))
+		end,
+
+		getOccupant = function(this, ...)
+			return getVehicleOccupant(this.vehicleElement, ...)
+		end,
+
+		--getOccupant = function(this)
+			--return Map:new(getVehicleOccupants(this.vehicleElement))--// TODO loop thru table and push every value into the Array:new()
+		--end,
+
+		getLandingGearDown = function(this)
+			return getVehicleLandingGearDown(this.vehicleElement)
+		end,
+
+		getOverrideLights = function(this)
+			return getVehicleOverrideLights(this.vehicleElement)
+		end,
+
+		getTowingVehicle = function(this)
+			return getVehicleTowingVehicle(this.vehicleElement)
+		end, 
+
+		getTowedVehicle = function(this)
+			return getVehicleTowedByVehicle(this.vehicleElement)
+		end,  
+
+		siren = {
+			get = function(this)
+				return getVehicleSirens(this.vehicleElement)
+			end, 
+
+			getState = function(this)
+				return getVehicleSirensOn(this.vehicleElement)
+			end, 
+
+			setState = function(this, ...)
+				setVehicleSirensOn(this.vehicleElement, ...)
+				return this
+			end,  
+
+			set = function(this, ...)
+				setVehicleSirens(this.vehicleElement, ...)
+				return this
+			end,  
+
+			getParams = function(this)
+				return Map:new(getVehicleSirenParams(this.vehicleElement))
+			end
+		},
+
+		paintjob = {
+			get = function(this)
+				return getVehiclePaintjob(this.vehicleElement)
+			end,
+
+			set = function(this, ...)
+				setVehiclePaintjob(this.vehicleElement, ...)
+				return this
+			end
+		},
+
+		nitro = {
+			getLevel = function(this)
+				return getVehicleNitroLevel(this.vehicleElement)
+			end,
+
+			getCount = function(this)
+				return getVehicleNitroCount(this.vehicleElement)
+			end,
+
+			isActivated = function(this)
+				return isVehicleNitroActivated(this.vehicleElement)
+			end,
+
+			isRecharging = function(this)
+				return isVehicleNitroRecharging(this.vehicleElement)
+			end
+		},
+
+		tailer = {
+			attach = function(this, ...)
+				attachTrailerToVehicle(this.vehicleElement, ...)
+				return this
+			end,
+	
+			detach = function(this, ...)
+				detachTrailerFromVehicle(this.vehicleElement, ...)
+				return this
+			end
+		},
 
     components = {
-      getPosition = function(this, name)
-        return getVehicleComponentPosition(this.vehicleElement, name)
+      getPosition = function(this, ...)
+        return getVehicleComponentPosition(this.vehicleElement, ...)
       end,
 
-      getRotation = function(this, name)
-        return getVehicleComponentRotation(this.vehicleElement, name)
+      getRotation = function(this, ...)
+        return getVehicleComponentRotation(this.vehicleElement, ...)
       end,
 
       getAll = function(this)
         return getVehicleComponents(this.vehicleElement)
       end,
 
-      isVisible = function(this, name)
-        return getVehicleComponentVisible(this.vehicleElement, name)
+      isVisible = function(this, ...)
+        return getVehicleComponentVisible(this.vehicleElement, ...)
       end
-    }
+		},
+
+		upgrade = {
+			add = function(this, ...)
+				addVehicleUpgrade(this.vehicleElement, ...)
+        return this
+			end,
+
+			remove = function(this, ...)
+				addVehicleUpgrade(this.vehicleElement, ...)
+        return this
+			end,
+
+			getCompatible = function(this, ...)
+        return Array:new(getVehicleCompatibleUpgrades(this.vehicleElement, ...))
+			end,
+
+			getOnSlot = function(this, ...)				
+        return getVehicleUpgradeOnSlot(this.vehicleElement, ...)
+			end,
+
+			getSlotName = function(this, ...)		
+        return getVehicleUpgradeSlotName(...)
+			end,
+
+			get = function(this)
+        return getVehicleUpgrades(this.vehicleElement)
+			end
+		},
+		
   }
 
   return setmetatable(data, {})
